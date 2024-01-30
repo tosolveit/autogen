@@ -334,6 +334,10 @@ class WebSurferAgent(ConversableAgent):
             except ValueError:
                 pass  # limit is unknown
 
+            # Let's not get grazy
+            limit = min(32000, limit)
+
+            # But we also need something to work with
             if limit < 16000:
                 logger.warning(
                     f"The token limit ({limit}) of the WebSurferAgent.summarizer_llm_config, is below the recommended 16k."
