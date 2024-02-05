@@ -12,7 +12,7 @@
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" integrity="sha384-Um5gpz1odJg5Z4HAmzPtgZKdTBHZdw8S29IecapCSB31ligYPhHQZMIlWLYQGVoc" crossorigin="anonymous">
 <script src="/autogen/js/custom.js" async defer="defer"></script><link rel="stylesheet" href="/autogen/assets/css/styles.a0570e4b.css">
-<script src="/autogen/assets/js/runtime~main.c1b504b6.js" defer="defer"></script>
+<script src="/autogen/assets/js/runtime~main.a88b9ea4.js" defer="defer"></script>
 <script src="/autogen/assets/js/main.4bb6bf9d.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
@@ -310,7 +310,7 @@ Otherwise, input() will be called to get the initial message.</li>
 <p>(async) Initiate a chat with the recipient agent.</p>
 <p>Reset the consecutive auto reply counter.
 If <code>clear_history</code> is True, the chat history with the recipient agent will be cleared.
-<code>generate_init_message</code> is called to generate the initial message for the agent.</p>
+<code>a_generate_init_message</code> is called to generate the initial message for the agent.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>recipient</code> - the recipient agent.</li>
@@ -318,7 +318,7 @@ If <code>clear_history</code> is True, the chat history with the recipient agent
 <li><code>silent</code> <em>bool or None</em> - (Experimental) whether to print the messages for this conversation.</li>
 <li><code>cache</code> <em>Cache or None</em> - the cache client to be used for this conversation.</li>
 <li><code>**context</code> - any context information.
-&quot;message&quot; needs to be provided if the <code>generate_init_message</code> method is not overridden.
+&quot;message&quot; needs to be provided if the <code>a_generate_init_message</code> method is not overridden.
 Otherwise, input() will be called to get the initial message.</li>
 </ul>
 <h4 class="anchor anchorWithStickyNavbar_LWe7" id="reset">reset<a href="#reset" class="hash-link" aria-label="Direct link to reset" title="Direct link to reset">​</a></h4>
