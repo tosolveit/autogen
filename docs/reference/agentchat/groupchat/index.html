@@ -12,7 +12,7 @@
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" integrity="sha384-Um5gpz1odJg5Z4HAmzPtgZKdTBHZdw8S29IecapCSB31ligYPhHQZMIlWLYQGVoc" crossorigin="anonymous">
 <script src="/autogen/js/custom.js" async defer="defer"></script><link rel="stylesheet" href="/autogen/assets/css/styles.a0570e4b.css">
-<script src="/autogen/assets/js/runtime~main.e3f4f2c3.js" defer="defer"></script>
+<script src="/autogen/assets/js/runtime~main.d102f8cf.js" defer="defer"></script>
 <script src="/autogen/assets/js/main.b3d50764.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
@@ -53,22 +53,30 @@ Could be any of the following (case insensitive), will raise ValueError if not r
 </ul>
 </li>
 <li>
-<p>allow_repeat_speaker: whether to allow the same speaker to speak consecutively. Default is True, in which case all speakers are allowed to speak consecutively. If allow_repeat_speaker is a list of Agents, then only those listed agents are allowed to repeat. If set to False, then no speakers are allowed to repeat. allow_repeat_speaker and allowed_or_disallowed_speaker_transitions are mutually exclusive.</p>
+<p>allow_repeat_speaker: whether to allow the same speaker to speak consecutively.
+Default is True, in which case all speakers are allowed to speak consecutively.
+If <code>allow_repeat_speaker</code> is a list of Agents, then only those listed agents are allowed to repeat.
+If set to False, then no speakers are allowed to repeat.
+<code>allow_repeat_speaker</code> and <code>allowed_or_disallowed_speaker_transitions</code> are mutually exclusive.</p>
 </li>
 <li>
-<p>allowed_or_disallowed_speaker_transitions: a dictionary of keys and list as values. The keys are the source agents, and the values are the agents that the key agent can transition to. Default is None, in which case a fully connected allowed_speaker_transitions_dict is assumed. allow_repeat_speaker and allowed_or_disallowed_speaker_transitions are mutually exclusive.</p>
+<p>allowed_or_disallowed_speaker_transitions: dict.
+The keys are source agents, and the values are agents that the key agent can/can&#x27;t transit to,
+depending on speaker_transitions_type. Default is None, which means all agents can transit to all other agents.
+<code>allow_repeat_speaker</code> and <code>allowed_or_disallowed_speaker_transitions</code> are mutually exclusive.</p>
 </li>
 <li>
-<p>speaker_transitions_type: whether the speaker_transitions_type is a dictionary containing lists of allowed agents or disallowed agents. allowed means the allowed_or_disallowed_speaker_transitions is a dictionary containing lists of allowed agents. If set to disallowed, then the allowed_or_disallowed_speaker_transitions is a dictionary containing lists of disallowed agents. Must be supplied if allowed_or_disallowed_speaker_transitions is not None.</p>
+<p>speaker_transitions_type: whether the speaker_transitions_type is a dictionary containing lists of allowed agents or disallowed agents.
+&quot;allowed&quot; means the <code>allowed_or_disallowed_speaker_transitions</code> is a dictionary containing lists of allowed agents.
+If set to &quot;disallowed&quot;, then the <code>allowed_or_disallowed_speaker_transitions</code> is a dictionary containing lists of disallowed agents.
+Must be supplied if <code>allowed_or_disallowed_speaker_transitions</code> is not None.</p>
 </li>
 <li>
 <p>enable_clear_history: enable possibility to clear history of messages for agents manually by providing
 &quot;clear history&quot; phrase in user prompt. This is experimental feature.
-See description of GroupChatManager.clear_agents_history function for more info.</p>
+See description of <code>agents</code>0 function for more info.</p>
 </li>
 </ul>
-<h4 class="anchor anchorWithStickyNavbar_LWe7" id="allow_repeat_speaker">allow_repeat_speaker<a href="#allow_repeat_speaker" class="hash-link" aria-label="Direct link to allow_repeat_speaker" title="Direct link to allow_repeat_speaker">​</a></h4>
-<p>It would be set to True if allowed_or_disallowed_speaker_transitions is None</p>
 <h4 class="anchor anchorWithStickyNavbar_LWe7" id="agent_names">agent_names<a href="#agent_names" class="hash-link" aria-label="Direct link to agent_names" title="Direct link to agent_names">​</a></h4>
 <div class="language-python codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_biex"><pre tabindex="0" class="prism-code language-python codeBlock_bY9V thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#bfc7d5"><span class="token decorator annotation punctuation" style="color:rgb(199, 146, 234)">@property</span><span class="token plain"></span><br></span><span class="token-line" style="color:#bfc7d5"><span class="token plain"></span><span class="token keyword" style="font-style:italic">def</span><span class="token plain"> </span><span class="token function" style="color:rgb(130, 170, 255)">agent_names</span><span class="token punctuation" style="color:rgb(199, 146, 234)">(</span><span class="token punctuation" style="color:rgb(199, 146, 234)">)</span><span class="token plain"> </span><span class="token operator" style="color:rgb(137, 221, 255)">-</span><span class="token operator" style="color:rgb(137, 221, 255)">&gt;</span><span class="token plain"> List</span><span class="token punctuation" style="color:rgb(199, 146, 234)">[</span><span class="token builtin" style="color:rgb(130, 170, 255)">str</span><span class="token punctuation" style="color:rgb(199, 146, 234)">]</span><br></span></code></pre><div class="buttonGroup__atx"><button type="button" aria-label="Copy code to clipboard" title="Copy" class="clean-btn"><span class="copyButtonIcons_eSgA" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_y97N"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_LjdS"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
 <p>Return the names of the agents in the group chat.</p>
