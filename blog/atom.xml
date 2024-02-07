@@ -2,11 +2,51 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://microsoft.github.io/autogen/blog</id>
     <title>AutoGen Blog</title>
-    <updated>2024-01-26T00:00:00.000Z</updated>
+    <updated>2024-02-02T00:00:00.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://microsoft.github.io/autogen/blog"/>
     <subtitle>AutoGen Blog</subtitle>
     <icon>https://microsoft.github.io/autogen/img/ag.ico</icon>
+    <entry>
+        <title type="html"><![CDATA[Anny: Assisting AutoGen Devs Via AutoGen]]></title>
+        <id>https://microsoft.github.io/autogen/blog/2024/02/02/AutoAnny</id>
+        <link href="https://microsoft.github.io/autogen/blog/2024/02/02/AutoAnny"/>
+        <updated>2024-02-02T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[Anny is a Discord bot powered by AutoGen to help AutoGen's Discord server.]]></summary>
+        <content type="html"><![CDATA[<div style="display:flex;justify-content:center"><img src="https://microsoft.github.io/autogen/assets/images/AutoAnnyLogo-cf10eabc29b77481aa7928bd3af6d995.jpg" alt="AutoAnny Logo" style="width:250px"></div>
+<p align="center"><em>Anny is a Discord bot powered by AutoGen to help AutoGen's Discord server.</em></p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="tldr">TLDR<a href="https://microsoft.github.io/autogen/blog/2024/02/02/AutoAnny#tldr" class="hash-link" aria-label="Direct link to TLDR" title="Direct link to TLDR">​</a></h3>
+<p>We are adding a new sample app called Anny-- a simple Discord bot powered
+by AutoGen that's intended to assist AutoGen Devs. See <code>samples/apps/auto-anny</code> for details.</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="introduction">Introduction<a href="https://microsoft.github.io/autogen/blog/2024/02/02/AutoAnny#introduction" class="hash-link" aria-label="Direct link to Introduction" title="Direct link to Introduction">​</a></h3>
+<p>Over the past few months, AutoGen has experienced large growth in number of users and number of community requests and feedback.
+However, accommodating this demand and feedback requires manually sifting through issues, PRs, and discussions on GitHub, as well as managing messages
+from AutoGen's 14000+ community members on Discord. There are many tasks that AutoGen's developer community has to perform everyday,
+but here are some common ones:</p>
+<ul>
+<li>Answering questions</li>
+<li>Recognizing and prioritizing bugs and features</li>
+<li>Maintaining responsiveness for our incredible community</li>
+<li>Tracking growth</li>
+</ul>
+<p>This requires a significant amount of effort. Agentic-workflows and interfaces promise adding
+immense value-added automation for many tasks, so we thought <em>why don't we use AutoGen to make
+our lives easier?!</em> So we're turning to automation to help us and allow
+us to focus on what's most critical.</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="current-version-of-anny">Current Version of Anny<a href="https://microsoft.github.io/autogen/blog/2024/02/02/AutoAnny#current-version-of-anny" class="hash-link" aria-label="Direct link to Current Version of Anny" title="Direct link to Current Version of Anny">​</a></h3>
+<p>The current version of Anny is pretty simple -- it uses the Discord API and AutoGen to enable a bot
+that can respond to a set of commands.</p>
+<p>For example, it supports commands like <code>/heyanny help</code> for command listing, <code>/heyanny ghstatus</code> for
+GitHub activity summary, <code>/heyanny ghgrowth</code> for GitHub repo growth indicators, and <code>/heyanny ghunattended</code> for listing unattended issues and PRs. Most of these commands use multiple AutoGen agents to accomplish these task.</p>
+<p>To use Anny, please follow instructions in <a href="https://github.com/microsoft/autogen/tree/main/samples/apps/auto-anny" target="_blank" rel="noopener noreferrer"><code>samples/apps/auto-anny</code></a>.</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="its-not-just-for-autogen">Its Not Just for AutoGen<a href="https://microsoft.github.io/autogen/blog/2024/02/02/AutoAnny#its-not-just-for-autogen" class="hash-link" aria-label="Direct link to Its Not Just for AutoGen" title="Direct link to Its Not Just for AutoGen">​</a></h3>
+<p>If you're an open-source developer managing your own project, you can probably relate to our challenges. We invite you to check out Anny and contribute to its development and roadmap.</p>]]></content>
+        <author>
+            <name>Gagan Bansal</name>
+            <uri>https://www.linkedin.com/in/gagan-bansal/</uri>
+        </author>
+        <category label="AutoGen" term="AutoGen"/>
+    </entry>
     <entry>
         <title type="html"><![CDATA[AutoGen with Custom Models: Empowering Users to Use Their Own Inference Mechanism]]></title>
         <id>https://microsoft.github.io/autogen/blog/2024/01/26/Custom-Models</id>
