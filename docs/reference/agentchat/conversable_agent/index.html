@@ -13,7 +13,7 @@
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" integrity="sha384-Um5gpz1odJg5Z4HAmzPtgZKdTBHZdw8S29IecapCSB31ligYPhHQZMIlWLYQGVoc" crossorigin="anonymous">
 <script src="/autogen/js/custom.js" async defer="defer"></script><link rel="stylesheet" href="/autogen/assets/css/styles.a0570e4b.css">
-<script src="/autogen/assets/js/runtime~main.78587983.js" defer="defer"></script>
+<script src="/autogen/assets/js/runtime~main.8c75a05a.js" defer="defer"></script>
 <script src="/autogen/assets/js/main.75abae7b.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
@@ -323,26 +323,31 @@ If <code>clear_history</code> is True, the chat history with the recipient agent
 <li><code>cache</code> <em>Cache or None</em> - the cache client to be used for this conversation.</li>
 <li><code>**context</code> - any context information. It has the following reserved fields:</li>
 <li><code>&quot;message&quot;</code> - a str of message. Needs to be provided. Otherwise, input() will be called to get the initial message.</li>
-<li><code>&quot;summary_method&quot;</code> - a string specify the method to get a summary from the chat.
-Supported methods are &quot;last_msg&quot; and &quot;reflection_with_llm&quot;.
+<li><code>&quot;summary_method&quot;</code> - a string or callable specifying the method to get a summary from the chat. Default is DEFAULT_summary_method, i.e., &quot;last_msg&quot;.
+<ul>
+<li>Supported string are &quot;last_msg&quot; and &quot;reflection_with_llm&quot;:
 when set &quot;last_msg&quot;, it returns the last message of the dialog as the summary.
 when set &quot;reflection_with_llm&quot;, it returns a summary extracted using an llm client.
-&quot;llm&quot; requires the llm_config to be set in either the sender or the recipient so that an llm client is available.
-When both the sender and the recipient have an llm client, the recipient&#x27;s llm client will be used.</li>
-<li><code>&quot;summary_prompt&quot;</code> - a string of text used to prompt a LLM-based agent (the sender or receiver agent) to reflext
+<code>llm_config</code> must be set in either the recipient or sender.
+&quot;reflection_with_llm&quot; requires the llm_config to be set in either the sender or the recipient.</li>
+<li>A callable summary_method should take the recipient and sender agent in a chat as input and return a string of summary. E.g,
+<code>generate_init_message</code>0</li>
+</ul>
+</li>
+<li><code>generate_init_message</code>1 - a string of text used to prompt a LLM-based agent (the sender or receiver agent) to reflext
 on the conversation and extract a summary when summary_method is &quot;reflection_with_llm&quot;.
 Default is DEFAULT_summary_prompt, i.e., &quot;Summarize takeaway from the conversation. Do not add any introductory phrases. If the intended request is NOT properly addressed, please point it out.&quot;</li>
-<li><code>generate_init_message</code>0 - a string or a list of string to specify the carryover information to be passed to this chat. It can be a string or a list of string.
+<li><code>generate_init_message</code>2 - a string or a list of string to specify the carryover information to be passed to this chat. It can be a string or a list of string.
 If provided, we will combine this carryover with the &quot;message&quot; content when generating the initial chat
 message in <code>generate_init_message</code>.</li>
 </ul>
 <p><strong>Raises</strong>:</p>
 <ul>
-<li><code>generate_init_message</code>2 - if any async reply functions are registered and not ignored in sync chat.</li>
+<li><code>generate_init_message</code>4 - if any async reply functions are registered and not ignored in sync chat.</li>
 </ul>
 <p><strong>Returns</strong>:</p>
 <ul>
-<li><code>generate_init_message</code>3 - an ChatResult object.</li>
+<li><code>generate_init_message</code>5 - an ChatResult object.</li>
 </ul>
 <h4 class="anchor anchorWithStickyNavbar_LWe7" id="a_initiate_chat">a_initiate_chat<a href="#a_initiate_chat" class="hash-link" aria-label="Direct link to a_initiate_chat" title="Direct link to a_initiate_chat">​</a></h4>
 <div class="language-python codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_biex"><pre tabindex="0" class="prism-code language-python codeBlock_bY9V thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#bfc7d5"><span class="token keyword" style="font-style:italic">async</span><span class="token plain"> </span><span class="token keyword" style="font-style:italic">def</span><span class="token plain"> </span><span class="token function" style="color:rgb(130, 170, 255)">a_initiate_chat</span><span class="token punctuation" style="color:rgb(199, 146, 234)">(</span><span class="token plain">recipient</span><span class="token punctuation" style="color:rgb(199, 146, 234)">:</span><span class="token plain"> </span><span class="token string" style="color:rgb(195, 232, 141)">&quot;ConversableAgent&quot;</span><span class="token punctuation" style="color:rgb(199, 146, 234)">,</span><span class="token plain"></span><br></span><span class="token-line" style="color:#bfc7d5"><span class="token plain">                          clear_history</span><span class="token punctuation" style="color:rgb(199, 146, 234)">:</span><span class="token plain"> Optional</span><span class="token punctuation" style="color:rgb(199, 146, 234)">[</span><span class="token builtin" style="color:rgb(130, 170, 255)">bool</span><span class="token punctuation" style="color:rgb(199, 146, 234)">]</span><span class="token plain"> </span><span class="token operator" style="color:rgb(137, 221, 255)">=</span><span class="token plain"> </span><span class="token boolean" style="color:rgb(255, 88, 116)">True</span><span class="token punctuation" style="color:rgb(199, 146, 234)">,</span><span class="token plain"></span><br></span><span class="token-line" style="color:#bfc7d5"><span class="token plain">                          silent</span><span class="token punctuation" style="color:rgb(199, 146, 234)">:</span><span class="token plain"> Optional</span><span class="token punctuation" style="color:rgb(199, 146, 234)">[</span><span class="token builtin" style="color:rgb(130, 170, 255)">bool</span><span class="token punctuation" style="color:rgb(199, 146, 234)">]</span><span class="token plain"> </span><span class="token operator" style="color:rgb(137, 221, 255)">=</span><span class="token plain"> </span><span class="token boolean" style="color:rgb(255, 88, 116)">False</span><span class="token punctuation" style="color:rgb(199, 146, 234)">,</span><span class="token plain"></span><br></span><span class="token-line" style="color:#bfc7d5"><span class="token plain">                          cache</span><span class="token punctuation" style="color:rgb(199, 146, 234)">:</span><span class="token plain"> Optional</span><span class="token punctuation" style="color:rgb(199, 146, 234)">[</span><span class="token plain">Cache</span><span class="token punctuation" style="color:rgb(199, 146, 234)">]</span><span class="token plain"> </span><span class="token operator" style="color:rgb(137, 221, 255)">=</span><span class="token plain"> </span><span class="token boolean" style="color:rgb(255, 88, 116)">None</span><span class="token punctuation" style="color:rgb(199, 146, 234)">,</span><span class="token plain"></span><br></span><span class="token-line" style="color:#bfc7d5"><span class="token plain">                          </span><span class="token operator" style="color:rgb(137, 221, 255)">**</span><span class="token plain">context</span><span class="token punctuation" style="color:rgb(199, 146, 234)">)</span><span class="token plain"> </span><span class="token operator" style="color:rgb(137, 221, 255)">-</span><span class="token operator" style="color:rgb(137, 221, 255)">&gt;</span><span class="token plain"> ChatResult</span><br></span></code></pre><div class="buttonGroup__atx"><button type="button" aria-label="Copy code to clipboard" title="Copy" class="clean-btn"><span class="copyButtonIcons_eSgA" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_y97N"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_LjdS"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
@@ -367,13 +372,18 @@ Each dictionary should contain the following fields:
 <li>&quot;recipient&quot;: the recipient agent.</li>
 <li>&quot;context&quot;: any context information, e.g., the request message. The following fields are reserved:
 &quot;message&quot; needs to be provided if the <code>generate_init_message</code> method is not overridden.
-Otherwise, input() will be called to get the initial message.
-&quot;summary_method&quot; can be used to specify the method to extract a summary from the chat.
-Supported methods are &quot;last_msg&quot; and &quot;reflection_with_llm&quot;.
+Otherwise, input() will be called to get the initial message.</li>
+</ul>
+</li>
+<li><code>&quot;summary_method&quot;</code> - a string or callable specifying the method to get a summary from the chat. Default is DEFAULT_summary_method, i.e., &quot;last_msg&quot;.
+<ul>
+<li>Supported string are &quot;last_msg&quot; and &quot;reflection_with_llm&quot;:
 when set &quot;last_msg&quot;, it returns the last message of the dialog as the summary.
 when set &quot;reflection_with_llm&quot;, it returns a summary extracted using an llm client.
 <code>llm_config</code> must be set in either the recipient or sender.
-&quot;reflection_with_llm&quot; requires the llm_config to be set in either the sender or the recipient.
+&quot;reflection_with_llm&quot; requires the llm_config to be set in either the sender or the recipient.</li>
+<li>A callable summary_method should take the recipient and sender agent in a chat as input and return a string of summary. E.g,
+<code>python             def my_summary_method(                 sender: ConversableAgent,                 recipient: ConversableAgent,             ):                 return recipient.last_message(sender)[&quot;content&quot;]             </code>
 &quot;summary_prompt&quot; can be used to specify the prompt used to extract a summary when summary_method is &quot;reflection_with_llm&quot;.
 Default is None and the following default prompt will be used when &quot;summary_method&quot; is set to &quot;reflection_with_llm&quot;:
 &quot;Identify and extract the final solution to the originally asked question based on the conversation.&quot;
@@ -628,12 +638,18 @@ If not overridden, &quot;message&quot; needs to be provided in the context, or i
 <ul>
 <li><code>**context</code> - any context information. It has the following reserved fields:</li>
 <li><code>&quot;message&quot;</code> - a str of message.</li>
-<li><code>&quot;summary_method&quot;</code> - a string specify the method to get a summary from the chat.
-Supported methods are &quot;last_msg&quot; and &quot;reflection_with_llm&quot;.
+<li><code>&quot;summary_method&quot;</code> - a string or callable specifying the method to get a summary from the chat. Default is DEFAULT_summary_method, i.e., &quot;last_msg&quot;.
+<ul>
+<li>Supported string are &quot;last_msg&quot; and &quot;reflection_with_llm&quot;:
 when set &quot;last_msg&quot;, it returns the last message of the dialog as the summary.
 when set &quot;reflection_with_llm&quot;, it returns a summary extracted using an llm client.
-&quot;llm&quot; requires the llm_config to be set in either the sender or the recipient so that an llm client is available.
+<code>llm_config</code> must be set in either the recipient or sender.
+&quot;reflection_with_llm&quot; requires the llm_config to be set in either the sender or the recipient.</li>
+<li>A callable summary_method should take the recipient and sender agent in a chat as input and return a string of summary. E.g,
+<code>python             def my_summary_method(                 sender: ConversableAgent,                 recipient: ConversableAgent,             ):                 return recipient.last_message(sender)[&quot;content&quot;]             </code>
 When both the sender and the recipient have an llm client, the recipient&#x27;s llm client will be used.</li>
+</ul>
+</li>
 <li><code>&quot;summary_prompt&quot;</code> - a string of text used to prompt a LLM-based agent (the sender or receiver agent) to reflext
 on the conversation and extract a summary when summary_method is &quot;reflection_with_llm&quot;.
 Default is DEFAULT_summary_prompt, i.e., &quot;Summarize takeaway from the conversation. Do not add any introductory phrases. If the intended request is NOT properly addressed, please point it out.&quot;</li>
