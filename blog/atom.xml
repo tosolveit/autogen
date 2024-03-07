@@ -1173,10 +1173,10 @@ In order to make effective decisions about memo storage and retrieval, the <code
 <p>AutoGen contains four code examples that use <code>Teachability</code>.</p>
 <ol>
 <li>
-<p>Run <a href="https://github.com/microsoft/autogen/blob/main/test/agentchat/contrib/chat_with_teachable_agent.py" target="_blank" rel="noopener noreferrer">chat_with_teachable_agent.py</a> to converse with a teachable agent.</p>
+<p>Run <a href="https://github.com/microsoft/autogen/blob/main/test/agentchat/contrib/capabilities/chat_with_teachable_agent.py" target="_blank" rel="noopener noreferrer">chat_with_teachable_agent.py</a> to converse with a teachable agent.</p>
 </li>
 <li>
-<p>Run <a href="https://github.com/microsoft/autogen/blob/main/test/agentchat/contrib/test_teachable_agent.py" target="_blank" rel="noopener noreferrer">test_teachable_agent.py</a> for quick unit testing of a teachable agent.</p>
+<p>Run <a href="https://github.com/microsoft/autogen/blob/main/test/agentchat/contrib/capabilities/test_teachable_agent.py" target="_blank" rel="noopener noreferrer">test_teachable_agent.py</a> for quick unit testing of a teachable agent.</p>
 </li>
 <li>
 <p>Use the Jupyter notebook <a href="https://github.com/microsoft/autogen/blob/main/notebook/agentchat_teachability.ipynb" target="_blank" rel="noopener noreferrer">agentchat_teachability.ipynb</a> to step through examples discussed below.</p>
