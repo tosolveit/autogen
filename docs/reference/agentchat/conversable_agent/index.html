@@ -13,7 +13,7 @@
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" integrity="sha384-Um5gpz1odJg5Z4HAmzPtgZKdTBHZdw8S29IecapCSB31ligYPhHQZMIlWLYQGVoc" crossorigin="anonymous">
 <script src="/autogen/js/custom.js" async defer="defer"></script><link rel="stylesheet" href="/autogen/assets/css/styles.ca10f300.css">
-<script src="/autogen/assets/js/runtime~main.ad94c12f.js" defer="defer"></script>
+<script src="/autogen/assets/js/runtime~main.3e186772.js" defer="defer"></script>
 <script src="/autogen/assets/js/main.9603178c.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
@@ -29,7 +29,7 @@ To modify the way to get human input, override <code>get_human_input</code> meth
 To modify the way to execute code blocks, single code block, or function call, override <code>execute_code_blocks</code>,
 <code>run_code</code>, and <code>execute_function</code> methods respectively.</p>
 <h4 class="anchor anchorWithStickyNavbar_LWe7" id="default_config">DEFAULT_CONFIG<a href="#default_config" class="hash-link" aria-label="Direct link to DEFAULT_CONFIG" title="Direct link to DEFAULT_CONFIG">​</a></h4>
-<p>An empty configuration</p>
+<p>False or dict, the default config for llm inference</p>
 <h4 class="anchor anchorWithStickyNavbar_LWe7" id="max_consecutive_auto_reply">MAX_CONSECUTIVE_AUTO_REPLY<a href="#max_consecutive_auto_reply" class="hash-link" aria-label="Direct link to MAX_CONSECUTIVE_AUTO_REPLY" title="Direct link to MAX_CONSECUTIVE_AUTO_REPLY">​</a></h4>
 <p>maximum number of consecutive auto replies (subject to future change)</p>
 <h3 class="anchor anchorWithStickyNavbar_LWe7" id="__init__">__init__<a href="#__init__" class="hash-link" aria-label="Direct link to __init__" title="Direct link to __init__">​</a></h3>
@@ -75,7 +75,9 @@ If set to &#x27;auto&#x27;, it will scan backwards through all messages arriving
 <li><code>llm_config</code> <em>dict or False or None</em> - llm inference configuration.
 Please refer to <a href="/autogen/docs/reference/oai/client#create">OpenAIWrapper.create</a>
 for available options.
-To disable llm-based auto reply, set to False.</li>
+When using OpenAI or Azure OpenAI endpoints, please specify a non-empty &#x27;model&#x27; either in <code>llm_config</code> or in each config of &#x27;config_list&#x27; in <code>llm_config</code>.
+To disable llm-based auto reply, set to False.
+When set to None, will use self.DEFAULT_CONFIG, which defaults to False.</li>
 <li><code>default_auto_reply</code> <em>str or dict</em> - default auto reply when no code execution or llm-based reply is generated.</li>
 <li><code>description</code> <em>str</em> - a short description of the agent. This description is used by other agents
 (e.g. the GroupChatManager) to decide when to call upon this agent. (Default: system_message)</li>

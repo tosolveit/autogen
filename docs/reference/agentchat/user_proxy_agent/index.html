@@ -13,7 +13,7 @@
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" integrity="sha384-Um5gpz1odJg5Z4HAmzPtgZKdTBHZdw8S29IecapCSB31ligYPhHQZMIlWLYQGVoc" crossorigin="anonymous">
 <script src="/autogen/js/custom.js" async defer="defer"></script><link rel="stylesheet" href="/autogen/assets/css/styles.ca10f300.css">
-<script src="/autogen/assets/js/runtime~main.ad94c12f.js" defer="defer"></script>
+<script src="/autogen/assets/js/runtime~main.3e186772.js" defer="defer"></script>
 <script src="/autogen/assets/js/main.9603178c.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
@@ -66,10 +66,11 @@ We strongly recommend using docker for code execution.</li>
 </ul>
 </li>
 <li><code>default_auto_reply</code> <em>str or dict or None</em> - the default auto reply message when no code execution or llm based reply is generated.</li>
-<li><code>llm_config</code> <em>dict or False</em> - llm inference configuration.
+<li><code>llm_config</code> <em>dict or False or None</em> - llm inference configuration.
 Please refer to <a href="/autogen/docs/reference/oai/client#create">OpenAIWrapper.create</a>
 for available options.
-Default to false, which disables llm-based auto reply.</li>
+Default to False, which disables llm-based auto reply.
+When set to None, will use self.DEFAULT_CONFIG, which defaults to False.</li>
 <li><code>system_message</code> <em>str or List</em> - system message for ChatCompletion inference.
 Only used when llm_config is not False. Use it to reprogram the agent.</li>
 <li><code>description</code> <em>str</em> - a short description of the agent. This description is used by other agents
