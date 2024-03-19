@@ -1,4 +1,4 @@
-from typing import Any, Dict, Optional, Tuple, Type, Union, get_args
+from typing import Any, Dict, Optional, Tuple, Type, TypeVar, TypedDict, Union, cast, get_args
 
 from pydantic import BaseModel
 from pydantic.version import VERSION as PYDANTIC_VERSION
@@ -8,12 +8,15 @@ __all__ = ("JsonSchemaValue", "model_dump", "model_dump_json", "type2schema", "e
 
 PYDANTIC_V1 = PYDANTIC_VERSION.startswith("1.")
 
+T = TypeVar("T")
+
 if not PYDANTIC_V1:
     from pydantic import TypeAdapter
     from pydantic._internal._typing_extra import eval_type_lenient as evaluate_forwardref
     from pydantic.json_schema import JsonSchemaValue
 
-    def type2schema(t: Optional[Type]) -> JsonSchemaValue:
+
+    def type2schema(t: Optional[type]) -> JsonSchemaValue:
         """Convert a type to a JSON schema
 
         Args:
@@ -47,15 +50,26 @@ if not PYDANTIC_V1:
         """
         return model.model_dump_json()
 
+    def to_typed_dict(obj: Dict[str, Any], t: Type[T]) -> T:
+        """Validate a dictionary against a TypedDict
+
+        Args:
+            obj (Dict[str, Any]): The dictionary to validate
+            t (Type[T]): The TypedDict type to validate against
+        """
+        validator = TypeAdapter(t)
+        return validator.validate_python(obj)
+
+
 
 # Remove this once we drop support for pydantic 1.x
 else:  # pragma: no cover
-    from pydantic import schema_of
-    from pydantic.typing import evaluate_forwardref as evaluate_forwardref
+    from pydantic import schema_of, create_model_from_typeddict
+    from pydantic.typing import evaluate_forwardref as evaluate_forwardref # type: ignore[no-redef]
 
-    JsonSchemaValue = Dict[str, Any]
+    JsonSchemaValue = Dict[str, Any] # type: ignore[misc]
 
-    def type2schema(t: Optional[Type]) -> JsonSchemaValue:
+    def type2schema(t: Optional[type]) -> JsonSchemaValue:
         """Convert a type to a JSON schema
 
         Args:
@@ -108,3 +122,12 @@ else:  # pragma: no cover
             str: The JSON string representation of the model
         """
         return model.json()
+
+    def to_typed_dict(obj: Dict[str, Any], t: Type[T]) -> T:
+        """Validate a dictionary against a TypedDict
+
+        Args:
+            obj (Dict[str, Any]): The dictionary to validate
+            t (Type[T]): The TypedDict type to validate against
+        """
+        return cast(T, create_model_from_typeddict(t)(**obj).dict()) # type: ignore[operator]

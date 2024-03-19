@@ -7,11 +7,15 @@ import logging
 import re
 from collections import defaultdict
 from functools import partial
+
 from typing import Any, Callable, Dict, List, Literal, Optional, Tuple, Type, TypeVar, Union
 import warnings
 from openai import BadRequestError
 
 from autogen.exception_utils import InvalidCarryOverType, SenderRequired
+
+from .. import types
+from .._pydantic import to_typed_dict
 
 from ..coding.base import CodeExecutor
 from ..coding.factory import CodeExecutorFactory
@@ -1261,7 +1265,7 @@ class ConversableAgent(LLMAgent):
         messages: Optional[List[Dict]] = None,
         sender: Optional[Agent] = None,
         config: Optional[OpenAIWrapper] = None,
-    ) -> Tuple[bool, Union[str, Dict, None]]:
+    ) -> Tuple[bool, Union[str, types.AssistantMessage, None]]:
         """Generate a reply using autogen.oai."""
         client = self.client if config is None else config
         if client is None:
@@ -1273,7 +1277,7 @@ class ConversableAgent(LLMAgent):
         )
         return (False, None) if extracted_response is None else (True, extracted_response)
 
-    def _generate_oai_reply_from_client(self, llm_client, messages, cache) -> Union[str, Dict, None]:
+    def _generate_oai_reply_from_client(self, llm_client, messages, cache) -> Union[str, types.AssistantMessage, None]:
         # unroll tool_responses
         all_messages = []
         for message in messages:
@@ -1292,21 +1296,33 @@ class ConversableAgent(LLMAgent):
             messages=all_messages,
             cache=cache,
         )
-        extracted_response = llm_client.extract_text_or_completion_object(response)[0]
+        extracted_response = llm_client.extract_text_or_completion_object(response)
 
         if extracted_response is None:
             warnings.warn("Extracted_response from {response} is None.", UserWarning)
             return None
+
+        if len(extracted_response) == 0:
+            warnings.warn("Extracted_response from {response} is empty.", UserWarning)
+            return None
+
+        if isinstance(extracted_response, ModelClient.ModelClientResponseProtocol.Choice.Message):
+            return extracted_response.content
+
         # ensure function and tool calls will be accepted when sent back to the LLM
         if not isinstance(extracted_response, str) and hasattr(extracted_response, "model_dump"):
             extracted_response = model_dump(extracted_response)
+
         if isinstance(extracted_response, dict):
-            if extracted_response.get("function_call"):
-                extracted_response["function_call"]["name"] = self._normalize_name(
-                    extracted_response["function_call"]["name"]
+            response = to_typed_dict(extracted_response, types.AssistantMessage)
+            if response.get("function_call"):
+                response["function_call"]["name"] = self._normalize_name(
+                    response["function_call"]["name"]
                 )
-            for tool_call in extracted_response.get("tool_calls") or []:
+            for tool_call in response.get("tool_calls") or []:
                 tool_call["function"]["name"] = self._normalize_name(tool_call["function"]["name"])
+            return response
+
         return extracted_response
 
     async def a_generate_oai_reply(
@@ -1314,7 +1330,7 @@ class ConversableAgent(LLMAgent):
         messages: Optional[List[Dict]] = None,
         sender: Optional[Agent] = None,
         config: Optional[Any] = None,
-    ) -> Tuple[bool, Union[str, Dict, None]]:
+    ) -> Tuple[bool, Union[str, types.AssistantMessage, None]]:
         """Generate a reply using autogen.oai asynchronously."""
         return await asyncio.get_event_loop().run_in_executor(
             None, functools.partial(self.generate_oai_reply, messages=messages, sender=sender, config=config)

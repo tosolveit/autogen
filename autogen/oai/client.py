@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import sys
-from typing import Any, List, Optional, Dict, Callable, Tuple, Union
+from typing import Any, List, Optional, Dict, Callable, Tuple, Union, runtime_checkable
 import logging
 import inspect
 import uuid
@@ -75,6 +75,8 @@ class ModelClient(Protocol):
 
     class ModelClientResponseProtocol(Protocol):
         class Choice(Protocol):
+
+            @runtime_checkable
             class Message(Protocol):
                 content: Optional[str]
 
