@@ -1,10 +1,12 @@
-from typing import Any, Dict, List, Protocol, Union, runtime_checkable
+from __future__ import annotations
+from typing import Any, List, Literal, Mapping, Optional, Protocol, TypedDict, Union, runtime_checkable
 
 from pydantic import BaseModel, Field
 
 from ..agentchat.agent import LLMAgent
+from ..types import UserMessageImageContentPart, UserMessageTextContentPart
 
-__all__ = ("CodeBlock", "CodeResult", "CodeExtractor", "CodeExecutor")
+__all__ = ("CodeBlock", "CodeResult", "CodeExtractor", "CodeExecutor", "CodeExecutionConfig")
 
 
 class CodeBlock(BaseModel):
@@ -26,7 +28,9 @@ class CodeResult(BaseModel):
 class CodeExtractor(Protocol):
     """(Experimental) A code extractor class that extracts code blocks from a message."""
 
-    def extract_code_blocks(self, message: Union[str, List[Dict[str, Any]], None]) -> List[CodeBlock]:
+    def extract_code_blocks(
+        self, message: Union[str, List[Union[UserMessageTextContentPart, UserMessageImageContentPart]], None]
+    ) -> List[CodeBlock]:
         """(Experimental) Extract code blocks from a message.
 
         Args:
@@ -76,4 +80,28 @@ class IPythonCodeResult(CodeResult):
     output_files: List[str] = Field(
         default_factory=list,
         description="The list of files that the executed code blocks generated.",
+    )
+
+
+CodeExecutionConfig = TypedDict(
+    "CodeExecutionConfig",
+    {
+        "executor": Union[Literal["ipython-embedded", "commandline-local"], CodeExecutor],
+        "last_n_messages": Union[int, Literal["auto"]],
+        "timeout": int,
+        "use_docker": Union[bool, str, List[str]],
+        "work_dir": str,
+        "ipython-embedded": Mapping[str, Any],
+        "commandline-local": Mapping[str, Any],
+    },
+    total=False,
+)
+
+
+class CommandLineCodeResult(CodeResult):
+    """(Experimental) A code result class for command line code executor."""
+
+    code_file: Optional[str] = Field(
+        default=None,
+        description="The file that the executed code block was saved to.",
     )

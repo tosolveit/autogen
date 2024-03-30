@@ -142,7 +142,7 @@ user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTM
 browser = RequestsMarkdownBrowser( #SeleniumMarkdownBrowser(
         viewport_size = 1024 * 5,
         downloads_folder = "coding",
-        search_engine = BingMarkdownSearch(bing_api_key = os.environ["BING_API_KEY"])
+        search_engine = BingMarkdownSearch(bing_api_key = os.environ["BING_API_KEY"], interleave_results=False)
     )
 
 web_surfer = WebSurferAgent(

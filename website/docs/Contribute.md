@@ -24,6 +24,11 @@ This project has adopted the [Microsoft Open Source Code of Conduct](https://ope
 For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or
 contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
 
+## Roadmaps
+
+To see what we are working on and what we plan to work on, please check our
+[Roadmap Issues](https://github.com/microsoft/autogen/issues?q=is%3Aopen+is%3Aissue+label%3Aroadmap).
+
 ## How to make a good bug report
 
 When you submit an issue to [GitHub](https://github.com/microsoft/autogen/issues), please do your best to
@@ -203,6 +208,11 @@ Then you can see the coverage report by
 `coverage report -m` or `coverage html`.
 
 ### Documentation
+
+#### How to get a notebook rendered on the website
+
+See [here](https://github.com/microsoft/autogen/blob/main/notebook/contributing.md#how-to-get-a-notebook-displayed-on-the-website) for instructions on how to get a notebook in the `notebook` directory rendered on the website.
+
 #### Build documentation locally
 1\. To build and test documentation locally, first install [Node.js](https://nodejs.org/en/download/). For example,
 ```bash
