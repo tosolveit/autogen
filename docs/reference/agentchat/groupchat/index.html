@@ -14,7 +14,7 @@
 <script>!function(e,t,n,c,s,a,r){e[n]=e[n]||function(){(e[n].q=e[n].q||[]).push(arguments)},(a=t.createElement(c)).async=1,a.src="https://www.clarity.ms/tag/lnxpe6skj1",(r=t.getElementsByTagName(c)[0]).parentNode.insertBefore(a,r)}(window,document,"clarity","script")</script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" integrity="sha384-Um5gpz1odJg5Z4HAmzPtgZKdTBHZdw8S29IecapCSB31ligYPhHQZMIlWLYQGVoc" crossorigin="anonymous">
 <script src="/autogen/js/custom.js" async defer="defer"></script><link rel="stylesheet" href="/autogen/assets/css/styles.d8ef5d37.css">
-<script src="/autogen/assets/js/runtime~main.5ede0e92.js" defer="defer"></script>
+<script src="/autogen/assets/js/runtime~main.aceb929d.js" defer="defer"></script>
 <script src="/autogen/assets/js/main.4dba1db1.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
@@ -31,6 +31,13 @@ KeyBoardInterrupt will make the admin agent take over.</li>
 When set to True and when a message is a function call suggestion,
 the next speaker will be chosen from an agent which contains the corresponding function name
 in its <code>function_map</code>.</li>
+<li>select_speaker_message_template: customize the select speaker message (used in &quot;auto&quot; speaker selection), which appears first in the message context and generally includes the agent descriptions and list of agents. The string value will be converted to an f-string, use &quot;{roles}&quot; to output the agent&#x27;s and their role descriptions and &quot;{agentlist}&quot; for a comma-separated list of agent names in square brackets. The default value is:
+&quot;You are in a role play game. The following roles are available:
+{roles}.
+Read the following conversation.
+Then select the next role from {agentlist} to play. Only return the role.&quot;</li>
+<li>select_speaker_prompt_template: customize the select speaker prompt (used in &quot;auto&quot; speaker selection), which appears last in the message context and generally includes the list of agents and guidance for the LLM to select the next agent. The string value will be converted to an f-string, use &quot;{agentlist}&quot; for a comma-separated list of agent names in square brackets. The default value is:
+&quot;Read the above conversation. Then select the next role from {agentlist} to play. Only return the role.&quot;</li>
 <li>speaker_selection_method: the method for selecting the next speaker. Default is &quot;auto&quot;.
 Could be any of the following (case insensitive), will raise ValueError if not recognized:</li>
 <li>&quot;auto&quot;: the next speaker is selected automatically by LLM.</li>
