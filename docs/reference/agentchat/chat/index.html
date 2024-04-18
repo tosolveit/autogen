@@ -14,7 +14,7 @@
 <script>!function(e,t,n,c,s,a,r){e[n]=e[n]||function(){(e[n].q=e[n].q||[]).push(arguments)},(a=t.createElement(c)).async=1,a.src="https://www.clarity.ms/tag/lnxpe6skj1",(r=t.getElementsByTagName(c)[0]).parentNode.insertBefore(a,r)}(window,document,"clarity","script")</script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" integrity="sha384-Um5gpz1odJg5Z4HAmzPtgZKdTBHZdw8S29IecapCSB31ligYPhHQZMIlWLYQGVoc" crossorigin="anonymous">
 <script src="/autogen/js/custom.js" async defer="defer"></script><link rel="stylesheet" href="/autogen/assets/css/styles.d8ef5d37.css">
-<script src="/autogen/assets/js/runtime~main.a5642f35.js" defer="defer"></script>
+<script src="/autogen/assets/js/runtime~main.d40fcd43.js" defer="defer"></script>
 <script src="/autogen/assets/js/main.f36d5b59.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
@@ -67,6 +67,9 @@ initial message.</li>
 <li><code>&quot;carryover&quot;</code> - It can be used to specify the carryover information to be passed
 to this chat. If provided, we will combine this carryover with the &quot;message&quot; content when
 generating the initial chat message in <code>generate_init_message</code>.</li>
+<li><code>&quot;finished_chat_indexes_to_exclude_from_carryover&quot;</code> - It can be used by specifying a list of indexes of the finished_chats list,
+from which to exclude the summaries for carryover. If &#x27;finished_chat_indexes_to_exclude_from_carryover&#x27; is not provided or an empty list,
+then summary from all the finished chats will be taken.</li>
 </ul>
 </li>
 </ul>
