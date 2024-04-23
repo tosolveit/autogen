@@ -107,7 +107,7 @@ class AssistantAgent(AgentStream):
             all_messages.append(self._system_message)
         all_messages.extend(chat_history.messages)
 
-        final_message = None
+        final_message: Optional[TextMessage | FunctionCallMessage] = None
         llm_messages = convert_messages_to_llm_messages(all_messages, self.name)
         async for response in self._model_client.create_stream(llm_messages, self._cache, functions=self._functions):
             if isinstance(response, str):

@@ -1,5 +1,5 @@
 from autogen.experimental.chat import ChatOrchestratorStream
-from autogen.experimental.types import AssistantMessage, FunctionCallMessage, UserMessage
+from autogen.experimental.types import AssistantMessage, FunctionExecutionResultMessage, UserMessage
 
 
 async def legacy_run_in_terminal(chat: ChatOrchestratorStream) -> str:
@@ -17,9 +17,9 @@ async def legacy_run_in_terminal(chat: ChatOrchestratorStream) -> str:
             if isinstance(message.content, str):
                 content = message.content
 
-        elif isinstance(message, FunctionCallMessage):
+        elif isinstance(message, FunctionExecutionResultMessage):
             content = ""
-            call_results = message.call_results
+            call_results = message.content
             for call_result in call_results:
                 content += call_result.content + "\n"
 

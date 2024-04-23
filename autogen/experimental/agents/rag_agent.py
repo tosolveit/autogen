@@ -7,7 +7,7 @@ from llama_index.core.response import Response
 
 from ..chat_history import ChatHistoryReadOnly
 from ..model_client import ModelClient
-from ..types import AssistantMessage, GenerateReplyResult, Message, SystemMessage, UserMessage
+from ..types import AssistantMessage, GenerateReplyResult, LLMMessage, Message, SystemMessage, TextMessage, UserMessage
 
 
 class RAGAgent:
@@ -68,9 +68,9 @@ class RAGAgent:
 
         response = self._query_engine.query(query)
 
-        if isinstance(response, Response):
+        if isinstance(response, Response) and response.response is not None:
             str_response = response.response
-            return AssistantMessage(content=str_response)
+            return TextMessage(content=str_response, source=self.name)
         else:
             raise ValueError("Failed to generate response")
 
@@ -102,7 +102,7 @@ the content."""
 
     system_message = "Reformulate the query based on the chat history."
 
-    messages: List[Message] = [SystemMessage(content=system_message), UserMessage(content=query)]
+    messages: List[LLMMessage] = [SystemMessage(content=system_message), UserMessage(content=query, source="rag")]
     response = await model_client.create(messages)
     reformulated_query = response.content
 
