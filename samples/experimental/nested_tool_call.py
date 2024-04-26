@@ -56,13 +56,13 @@ def message_content(message: Message) -> str:
 def print_chat_tree_simple(chat: ChatResult, depth: int = 0) -> None:
     for message, context in zip(chat.conversation.messages, chat.conversation.contexts):
         # Just print the message
-        agent_name = context.sender.name if context.sender is not None else "Unknown"
+        agent_name = context["sender"].name if "sender" in context else "Unknown"
         message_type_str = message_type(message)
         cprint(f"{'  ' * depth}({agent_name}): ", "green", end="")
         cprint(f"{message_type_str} = ", "blue", end="")
         cprint(f"{message_content(message)}", "yellow")
-        if context.nested_chat_result is not None:
-            print_chat_tree_simple(context.nested_chat_result, depth + 1)
+        if "nested_chat_result" in context:
+            print_chat_tree_simple(context["nested_chat_result"], depth + 1)
 
 
 async def main() -> None:

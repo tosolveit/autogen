@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import TYPE_CHECKING, Any, Dict, List, Optional, Tuple, Union
+from typing import TYPE_CHECKING, Any, Dict, List, Optional, Tuple, TypedDict, Union
 
 from typing_extensions import Literal
 
@@ -98,21 +98,20 @@ Message = Union[SystemMessage, TextMessage, MultiModalMessage, FunctionCallMessa
 LLMMessage = Union[SystemMessage, UserMessage, AssistantMessage, FunctionExecutionResultMessage]
 
 
-@dataclass
-class MessageContext:
+class MessageContext(TypedDict, total=False):
     # If this agent modified the input, this should be set
-    input: Optional[List[Message]] = None
+    input: List[Message]
 
     # If this agent initiated a nested conversation, this should be set
-    nested_chat_result: Optional[ChatResult] = None
+    nested_chat_result: ChatResult
 
     # Who sent this message?
-    sender: Optional[Agent] = None
+    sender: Agent
 
     # Why was this speaker chosen?
-    speaker_selection_reason: Optional[str] = None
+    speaker_selection_reason: str
 
-    termination_result: Optional[TerminationResult] = None
+    termination_result: TerminationResult
 
 
 FinishReasons = Literal["stop", "length", "function_calls", "content_filter"]

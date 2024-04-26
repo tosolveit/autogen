@@ -91,22 +91,27 @@ class GroupChat(ChatOrchestratorStream):
         if isinstance(reply, tuple):
             message, context = reply
             # We overwrite the context sender to be the current speaker
-            context.sender = self._speaker
+            if self._speaker is not None:
+                context["sender"] = self._speaker
             # TODO add input if not set
         else:
             message = reply
             # TODO add input etc
-            context = MessageContext(sender=self._speaker)
+            if self._speaker is not None:
+                context = MessageContext(sender=self._speaker)
+            else:
+                context = MessageContext()
 
         assert self._speaker is not None, "Speaker should only ever be None at initialization."
         self._termination_manager.record_turn_taken(self._speaker)
-        context.speaker_selection_reason = speaker_selection_reason
+        if speaker_selection_reason is not None:
+            context["speaker_selection_reason"] = speaker_selection_reason
         self._conversation.append_message(message, context=context)
 
         maybe_termination = await self._termination_manager.check_termination(self._conversation)
 
         # TODO: work out a way to fix this post append update
-        self._conversation.contexts[-1].termination_result = maybe_termination
+        self._conversation.contexts[-1]["termination_result"] = maybe_termination
 
         if isinstance(maybe_termination, Terminated):
             await self._finalize(maybe_termination)
