@@ -14,7 +14,7 @@
 <script>!function(e,t,n,c,s,a,r){e[n]=e[n]||function(){(e[n].q=e[n].q||[]).push(arguments)},(a=t.createElement(c)).async=1,a.src="https://www.clarity.ms/tag/lnxpe6skj1",(r=t.getElementsByTagName(c)[0]).parentNode.insertBefore(a,r)}(window,document,"clarity","script")</script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" integrity="sha384-Um5gpz1odJg5Z4HAmzPtgZKdTBHZdw8S29IecapCSB31ligYPhHQZMIlWLYQGVoc" crossorigin="anonymous">
 <script src="/autogen/js/custom.js" async defer="defer"></script><link rel="stylesheet" href="/autogen/assets/css/styles.d8ef5d37.css">
-<script src="/autogen/assets/js/runtime~main.270a5745.js" defer="defer"></script>
+<script src="/autogen/assets/js/runtime~main.af2537ff.js" defer="defer"></script>
 <script src="/autogen/assets/js/main.4c0ee115.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
@@ -377,7 +377,8 @@ If max_turns is set to None, the chat will continue until a termination conditio
 <p><code>summary_args</code> <em>dict</em> - a dictionary of arguments to be passed to the summary_method.
 One example key is &quot;summary_prompt&quot;, and value is a string of text used to prompt a LLM-based agent (the sender or receiver agent) to reflect
 on the conversation and extract a summary when summary_method is &quot;reflection_with_llm&quot;.
-The default summary_prompt is DEFAULT_SUMMARY_PROMPT, i.e., &quot;Summarize takeaway from the conversation. Do not add any introductory phrases. If the intended request is NOT properly addressed, please point it out.&quot;</p>
+The default summary_prompt is DEFAULT_SUMMARY_PROMPT, i.e., &quot;Summarize takeaway from the conversation. Do not add any introductory phrases. If the intended request is NOT properly addressed, please point it out.&quot;
+Another available key is &quot;summary_role&quot;, which is the role of the message sent to the agent in charge of summarizing. Default is &quot;system&quot;.</p>
 </li>
 <li>
 <p><code>message</code> <em>str, dict or Callable</em> - the initial message to be sent to the recipient. Needs to be provided. Otherwise, input() will be called to get the initial message.</p>
